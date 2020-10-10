@@ -2,6 +2,7 @@ import pytest
 from fixture.application import Application
 import json
 import os.path
+from fixture.db import DbFixture
 
 fixture = None
 target = None
@@ -40,3 +41,14 @@ def load_config(file):
         with open(config_file) as f:
             target = json.load(f)
     return target
+
+@pytest.fixture(scope="session")
+def db(request):
+#    db_config = load_config(request.config.getoption("--target"))['db']
+    dbfixture = DbFixture(host='localhost', database='bugtracker', user='root', password='')
+    def fin():
+        dbfixture.destroy()
+    request.addfinalizer(fin)
+    return dbfixture
+
+
