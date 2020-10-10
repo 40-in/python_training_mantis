@@ -44,7 +44,6 @@ def load_config(file):
 
 @pytest.fixture(scope="session")
 def db(request):
-#    db_config = load_config(request.config.getoption("--target"))['db']
     dbfixture = DbFixture(host='localhost', database='bugtracker', user='root', password='')
     def fin():
         dbfixture.destroy()
