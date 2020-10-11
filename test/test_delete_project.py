@@ -4,8 +4,13 @@ from random import randrange
 
 def test_delete_project(app, db):
     app.session.login("administrator", "root")
-    app.project.open_projects_page()
     old_projects = db.get_project_list()
+    app.project.open_projects_page()
+    if len(old_projects) == 0:
+        project = app.project.generate_project_data()
+        app.project.fill_project_form(project)
+        old_projects = db.get_project_list()
+        app.project.open_projects_page()
     index = randrange(len(old_projects))
     name = old_projects[index].name
     app.project.open(name)
