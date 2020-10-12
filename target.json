@@ -5,5 +5,8 @@
   "webadmin": {
     "username": "administrator",
     "password": "root"
+  },
+  "soap": {
+    "soap_url": "http://localhost/mantis/api/soap/mantisconnect.php?wsdl"
   }
 }
